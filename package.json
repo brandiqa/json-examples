@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/brandiqa/json-examples/issues"
   },
-  "homepage": "https://github.com/brandiqa/json-examples#readme"
+  "homepage": "https://github.com/brandiqa/json-examples#readme",
+  "dependencies": {
+    "twitter": "^1.7.1"
+  }
 }
