@@ -19,6 +19,8 @@ const services = require('./services');
 const appHooks = require('./app.hooks');
 
 const mongoose = require('./mongoose');
+const seeder = require('feathers-seeder');
+const seederConfig = require('./seeder-config');
 
 const app = feathers();
 
@@ -49,5 +51,8 @@ app.use(notFound());
 app.use(handler());
 
 app.hooks(appHooks);
+
+// Seed demo data
+app.configure(seeder(seederConfig));
 
 module.exports = app;
