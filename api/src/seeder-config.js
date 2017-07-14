@@ -1,4 +1,5 @@
 module.exports = {
+  disabled: false,
   services: [
     {
       path: '/customers',
