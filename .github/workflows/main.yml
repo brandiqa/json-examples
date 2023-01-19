@@ -20,8 +20,8 @@ jobs:
         with:
           args: --acl public-read --follow-symlinks --delete --exclude '.git/*' --exclude '.github/*'
         env:
-          AWS_S3_BUCKET: ${{ secrets.ecsitebucket }}
-          AWS_ACCESS_KEY_ID: ${{ secrets.AKIAR55VLGZVW6S33DAU }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.2oZ0LLsWG3U69RTQBE1jV4C2IznluWoCGQMGYWLA }}
-          AWS_REGION: ${{ secrets.us-east-2 }}
+          AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: 'us-east-2'
           SOURCE_DIR: './public'
