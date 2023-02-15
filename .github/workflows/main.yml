@@ -14,15 +14,16 @@ jobs:
     steps:
       - uses: actions/checkout@master
 
-      - name: Send email
-        uses: wadeww/send-email-action@master
+      - name: Send mail
+        uses: dawidd6/action-send-mail@v3
         with:
           server_address: "smtp.gmail.com"
-          port: 465
+          secure: true
+          server_port: 465
           username: ${{secrets.ACCOUNT}}
           password: ${{secrets.MAIL_PASSWORD}}
           from: jeyapriya@vthink.co.in
           to: jeyapriya@vthink.co.in
           subject: mail title.
           body: your messages.
-   
+          
