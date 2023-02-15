@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v2
 
       - name: Send mail
         if: always()
@@ -25,5 +25,5 @@ jobs:
           subject: ${{ github.job }} job of ${{ github.repository }} has ${{ job.status }}
           body: ${{ github.job }} job in worflow ${{ github.workflow }} of ${{ github.repository }} has ${{ job.status }}
           to: mechg16@gmail.com
-          from: mechg16
+          from: github-actions
    
