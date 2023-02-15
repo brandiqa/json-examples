@@ -45,14 +45,14 @@ jobs:
 
 
       - name: Send email
-        uses: devellany/send-mailer@v1.0.2
+        uses: wadeww/send-email-action@master
         with:
-          host: "smtp.google.com"
-          account: ${{secrets.ACCOUNT}}
+          server_address: "smtp.gmail.com"
+          port: 465
+          username: ${{secrets.ACCOUNT}}
           password: ${{secrets.MAIL_PASSWORD}}
-          sender: Jeya
           from: jeyapriya@vthink.co.in
           to: jeyapriya@vthink.co.in
           subject: mail title.
           body: your messages.
-          contentType: text/plain
+   
