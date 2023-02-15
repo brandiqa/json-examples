@@ -42,3 +42,17 @@ jobs:
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           source: 'InstrumentTest/file3.json'
           dest: 's3://jsonbackupbucket/InstrumentTest/file3.json'
+
+
+      - name: Send email
+        uses: devellany/send-mailer@v1.0.2
+        with:
+          host: "smtp.google.com"
+          account: ${{secrets.ACCOUNT}}
+          password: ${{secrets.MAIL_PASSWORD}}
+          sender: Jeya
+          from: jeyapriya@vthink.co.in
+          to: jeyapriya@vthink.co.in
+          subject: mail title.
+          body: your messages.
+          contentType: text/plain
