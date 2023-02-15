@@ -1,7 +1,7 @@
 name: SyncToS3
 on:
   push:
-    branches: [ master ]
+    branches: [ develop ]
 
   workflow_dispatch:
     
