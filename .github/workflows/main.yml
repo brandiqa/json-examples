@@ -1,7 +1,5 @@
 name: SyncToS3
-
 on:
-
   push:
     branches: [ master ]
 
@@ -15,13 +13,11 @@ jobs:
     
     steps:
       - uses: actions/checkout@master
-      - uses: jakejarvis/s3-sync-action@master
+      
+      - name: Copy a file from s3
+        uses: prewk/s3-cp-action@v2
         with:
-          args: --follow-symlinks --delete --exclude '.git/*' --exclude '.github/*'
-        env:
-          AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: 'us-east-2'
-          FILE_PATH: 'InstrumentTest/default.json'
-          FILE: 'default.json'
+          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          source: 'InstrumentTest/file1.json'
+          dest: 's3://jsonbackupbucket/InstrumentTest/file1.json'
