@@ -14,33 +14,14 @@ jobs:
     steps:
       - uses: actions/checkout@master
 
-      - name: Copy  file1.json from s3
-        if: contains(github.event.head_commit.message, 'push file1.json')  || contains(github.event.head_commit.message, 'push all')
-        uses: prewk/s3-cp-action@v2
+      - name: Send email
+        uses: dawidd6/action-send-mail@v4.0.0
         with:
-          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          source: 'InstrumentTest/file1.json'
-          dest: 's3://jsonbackupbucket/InstrumentTest/file1.json'
-
-
-      - name: Copy  file2.json from s3
-        uses: prewk/s3-cp-action@v2
-        if: contains(github.event.head_commit.message, 'push file2.json') || contains(github.event.head_commit.message, 'push all')
-        with:
-          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          source: 'InstrumentTest/file2.json'
-          dest: 's3://jsonbackupbucket/InstrumentTest/file2.json'
-
-
-      - name: Copy  file3.json from s3
-        uses: prewk/s3-cp-action@v2
-        if: contains(github.event.head_commit.message, 'push file3.json') || contains(github.event.head_commit.message, 'push all')
-        with:
-          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          source: 'InstrumentTest/file3.json'
-          dest: 's3://jsonbackupbucket/InstrumentTest/file3.json'
-
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: your_email@gmail.com
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          subject: 'Test email from GitHub Actions'
+          body: 'This is a test email from GitHub Actions!'
+          to: 'recipient@example.com'
    
