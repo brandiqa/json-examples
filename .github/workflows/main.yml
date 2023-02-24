@@ -1,7 +1,11 @@
 name: Push JSON Files to S3
 on:
   push:
+<<<<<<< HEAD
     branches: [ "develop" ]
+=======
+    branches: [ "master" ]
+>>>>>>> b6b4d43cfb69e209ddb1a15f1f13b70d915adfe8
 
 jobs:
   Push-JSON-Files-to-S3:
