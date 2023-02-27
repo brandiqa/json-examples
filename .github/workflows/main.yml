@@ -1,51 +1,47 @@
-name: Push JSON Files to S3
+name: SyncToS3
 on:
   push:
+    branches: [ develop ]
 
-    branches: [ "develop" ]
-
+  workflow_dispatch:
+    
 jobs:
-  Push-JSON-Files-to-S3:
-    runs-on: "ubuntu-latest"
-    if: ${{ (contains(github.event.head_commit.message, '[') && contains(github.event.head_commit.message, ']')) }}
+ 
+  build:
+    
+    runs-on: ubuntu-latest
+    
     steps:
-      - name: "Checkout Code"
-        uses: actions/checkout@v3
+      - uses: actions/checkout@master
 
-      - name: "Slice Commit message"
-        id: get_file_name
-        env:
-          COMMIT_MSG: ${{ github.event.head_commit.message }}
-        run: |
-          echo ::set-output name=filename::$(echo $COMMIT_MSG | cut -d'[' -f2 | cut -d']' -f1)
-
-      - name: "Check file existence"
-        if: "!contains(github.event.head_commit.message, '[all]')"
-        id: check_files
-        uses: andstor/file-existence-action@v2
-        with:
-          files: "InstrumentTest/${{ steps.get_file_name.outputs.filename }}"
-
-      - name: "File existence"
-        if: ${{ (steps.check_files.outputs.files_exists == 'true' && !contains(github.event.head_commit.message, '[all]') )}}
+      - name: Copy  file1.json from s3
+        if: contains(github.event.head_commit.message, 'push file1.json')  || contains(github.event.head_commit.message, 'push all')
         uses: prewk/s3-cp-action@v2
         with:
           aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          source: "InstrumentTest//${{ steps.get_file_name.outputs.filename }}"
-          dest: "s3://ecsitebuck/InstrumentTest/${{ steps.get_file_name.outputs.filename }}"
+          source: 'InstrumentTest/file1.json'
+          dest: 's3://jsonbackupbucket/InstrumentTest/file1.json'
 
-      - name: "File existence"
-        if: ${{ (steps.check_files.outputs.files_exists == 'false' && !contains(github.event.head_commit.message, '[all]') )}}
-        run: |
-          echo "file not Exists"
 
-      - name: "Copy All files"
-        if: "contains(github.event.head_commit.message, '[all]')"
+      - name: Copy  file2.json from s3
         uses: prewk/s3-cp-action@v2
+        if: contains(github.event.head_commit.message, 'push file2.json') || contains(github.event.head_commit.message, 'push all')
         with:
           aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          source: "InstrumentTest"
-          dest: "s3://ecsitebuck/InstrumentTest"
-          flags: --recursive
+          source: 'InstrumentTest/file2.json'
+          dest: 's3://jsonbackupbucket/InstrumentTest/file2.json'
+
+
+      - name: Copy  file3.json from s3
+        uses: prewk/s3-cp-action@v2
+        if: contains(github.event.head_commit.message, 'push file3.json') || contains(github.event.head_commit.message, 'push all')
+        with:
+          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          source: 'InstrumentTest/file3.json'
+          dest: 's3://jsonbackupbucket/InstrumentTest/file3.json'
+
+
+
