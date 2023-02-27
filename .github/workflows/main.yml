@@ -4,7 +4,7 @@ on:
     branches: [ "develop" ]
 
 jobs:
-  Push-JSON-Files-to-S3:
+  build:
     runs-on: "ubuntu-latest"
     if: ${{ (contains(github.event.head_commit.message, '[') && contains(github.event.head_commit.message, ']')) }}
     steps:
