@@ -10,15 +10,7 @@ jobs:
   build:
     
     runs-on: ubuntu-latest
-	
-	steps:
-      - run: echo "Starting GitHub Actions Job"
-      - uses: cinotify/github-action@main
-        with:
-          to: 'jeyapriya@vthink.co.in'
-          subject: 'S3 bucket Updated'
-          body: 'This is a notification from GitHub actions'
-    
+
     steps:
       - uses: actions/checkout@master
 
@@ -50,6 +42,14 @@ jobs:
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           source: 'InstrumentTest/file3.json'
           dest: 's3://jsonbackupbucket/InstrumentTest/file3.json'
+
+      - name: Copy  file3.json from s3
+        uses: cinotify/github-action@main
+        with:
+          to: 'jeyapriya@vthink.co.in'
+          subject: 'building mail'
+          body: 'S3 updated'
+       
 
      
 
