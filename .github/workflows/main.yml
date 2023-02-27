@@ -4,7 +4,7 @@ on:
     branches: [ "develop" ]
 
 jobs:
-  build:
+  Push-JSON-Files-to-S3:
     runs-on: "ubuntu-latest"
     if: ${{ (contains(github.event.head_commit.message, '[') && contains(github.event.head_commit.message, ']')) }}
     steps:
@@ -20,7 +20,7 @@ jobs:
 
       - name: "Check file existence"
         if: "!contains(github.event.head_commit.message, '[all]')"
-        id: check_file
+        id: check_files
         uses: andstor/file-existence-action@v2
         with:
           files: "InstrumentTest/${{ steps.get_file_name.outputs.filename }}"
@@ -48,14 +48,3 @@ jobs:
           source: "InstrumentTest"
           dest: "s3://ecsitebuck/InstrumentTest"
           flags: --recursive
-
-
-
-
-
-
-
-
-
-
-
